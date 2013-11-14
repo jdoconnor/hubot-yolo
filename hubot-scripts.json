@@ -1,4 +1,5 @@
 [
+  "newrelic.coffee",
   "redis-brain.coffee",
   "sendgrid.coffee",
   "shipit.coffee"
