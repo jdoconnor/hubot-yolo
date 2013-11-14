@@ -1,1 +1,7 @@
-["redis-brain.coffee", "shipit.coffee"]
+[
+  "ackbar.coffee",
+  "archer.coffee",
+  "karma.coffee",
+  "redis-brain.coffee",
+  "shipit.coffee"
+]
