@@ -1,6 +1,12 @@
 [
+  "asana.coffee",
+  "base64.coffee",
+  "days_since.coffee",
+  "gemwhois.coffee",
+  "karma.coffee",
   "newrelic.coffee",
   "redis-brain.coffee",
   "sendgrid.coffee",
-  "shipit.coffee"
+  "shipit.coffee",
+  "working-on.coffee"
 ]
