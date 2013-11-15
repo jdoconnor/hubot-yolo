@@ -34,6 +34,9 @@ module.exports = (robot) ->
   snake_case = (string) ->
     string.replace('\'', "").toLowerCase().split(' ').join('_')
 
+  getAmbiguousUserText = (users) ->
+    "Be more specific, I know #{users.length} people named like that: #{(user.name for user in users).join(", ")}"
+
   get_user_mood = (user, current_user, msg) ->
 
     robot.http("https://api.bellycard.com/api/data/get")
@@ -76,8 +79,16 @@ module.exports = (robot) ->
     get_user_mood(user, true, msg)
 
   robot.respond /(.*)(\'s)( mood)/i, (msg) ->
-    user = msg.match[1]
-    get_user_mood(user, false, msg)
+    name = msg.match[1]
+    users = robot.brain.usersForFuzzyName(name)
+    if users.length is 1
+      user = users[0]
+      get_user_mood(snake_case(user.name), false, msg)
+    else if users.length > 1
+      msg.send getAmbiguousUserText(users)
+    else
+      msg.send "#{name}? Who the hell is that?"
+
 
   # TODO: make this respond in one message
   robot.respond /(how\'s it hangin?)(.*)/i, (msg) ->
