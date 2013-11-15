@@ -31,6 +31,9 @@ module.exports = (robot) ->
     else
       hex
 
+  snake_case = (string) ->
+    string.toLowerCase.split(' ').join('_')
+
   get_user_mood = (user, current_user, msg) ->
 
     robot.http("https://api.bellycard.com/api/data/get")
@@ -52,7 +55,7 @@ module.exports = (robot) ->
 
   robot.respond /(mood|md)( me)? (.*)/i, (msg) ->
     rgb = msg.match[3]
-    user = msg.message.user.name.toLowerCase()
+    user = snake_case(msg.message.user.name)
     params = 
       key: "mood_ring_#{user}"
       password: process.env.CACHE_SERVICE_PASSWORD
@@ -66,10 +69,10 @@ module.exports = (robot) ->
         if err
           msg.send "An error ocurred."
         else
-          msg.send "Mood successfully updated to #{rgb_to_hex(rgb)}"
+          msg.send "Mood successfully updated to #{rgb_to_hex(rgb)} for #{user}"
 
   robot.respond /(my)( mood)/i, (msg) ->
-    user = msg.message.user.name.toLowerCase()
+    user = snake_case(msg.message.user.name)
     get_user_mood(user, true, msg)
 
   robot.respond /(.*)(\'s)( mood)/i, (msg) ->
@@ -80,7 +83,7 @@ module.exports = (robot) ->
   robot.respond /(how\'s it hangin?)(.*)/i, (msg) ->
     users = robot.brain.users()
     for key, value of users
-      get_user_mood(value.name, false, msg)
+      get_user_mood(snake_case(value.name) false, msg)
 
 
        
