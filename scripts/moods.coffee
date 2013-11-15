@@ -9,7 +9,7 @@
 #
 #  Examples: 
 #    hubot mood me [255,0,0]
-#    hubot kreedy's mood
+#    hubot Kevin's mood
 module.exports = (robot) ->
 
   # Converts an array in string form to an array
@@ -55,7 +55,6 @@ module.exports = (robot) ->
             prefix = "#{user} is" 
           msg.send "#{prefix} feeling: #{rgb_to_hex(body)}"
     
-
   robot.respond /(mood|md)( me)? (.*)/i, (msg) ->
     rgb = msg.match[3]
     user = snake_case(msg.message.user.name)
@@ -89,12 +88,8 @@ module.exports = (robot) ->
     else
       msg.send "#{name}? Who the hell is that?"
 
-
-  # TODO: make this respond in one message
   robot.respond /(how\'s it hangin?)(.*)/i, (msg) ->
     users = robot.brain.users()
     for key, value of users
       get_user_mood(snake_case(value.name), false, msg)
-
-
        
