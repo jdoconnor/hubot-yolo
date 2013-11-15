@@ -71,7 +71,7 @@ module.exports = (robot) ->
         if err
           msg.send "An error ocurred."
         else
-          msg.send "Mood successfully updated to #{rgb_to_hex(rgb)} for #{user}"
+          msg.send "Mood successfully updated to #{rgb_to_hex(rgb)}"
 
   robot.respond /(my)( mood)/i, (msg) ->
     user = snake_case(msg.message.user.name)
