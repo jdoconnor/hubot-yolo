@@ -32,7 +32,7 @@ module.exports = (robot) ->
       hex
 
   snake_case = (string) ->
-    string.toLowerCase().split(' ').join('_')
+    string.replace('\'', "").toLowerCase().split(' ').join('_')
 
   get_user_mood = (user, current_user, msg) ->
 
