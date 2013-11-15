@@ -83,7 +83,7 @@ module.exports = (robot) ->
   robot.respond /(how\'s it hangin?)(.*)/i, (msg) ->
     users = robot.brain.users()
     for key, value of users
-      get_user_mood(snake_case(value.name) false, msg)
+      get_user_mood(snake_case(value.name), false, msg)
 
 
        
